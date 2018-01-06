@@ -9,8 +9,10 @@ import android.database.Cursor;
 
 import com.deskind.rollingwrench.entities.Car;
 import com.deskind.rollingwrench.entities.FuelUp;
+import com.deskind.rollingwrench.entities.Repair;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Dao
 public interface  CarsDAO {
@@ -19,6 +21,9 @@ public interface  CarsDAO {
 
     @Insert
     public void insertFuelUp(FuelUp fuelUp);
+
+    @Insert
+    public void insertRepair(Repair repair);
 
     @Query("SELECT * FROM 'Car' where car_brand = :car_brand")
     public Car getCar(String car_brand);
@@ -29,5 +34,6 @@ public interface  CarsDAO {
     @Query("SELECT car_brand FROM car")
     public String[] getAllCarBrands();
 
-
+    @Query("SELECT * FROM Repair where CarBrand = :carBrand")
+    public Repair[] getAllRapairsForBrand(String carBrand);
 }

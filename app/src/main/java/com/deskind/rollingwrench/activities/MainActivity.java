@@ -16,17 +16,23 @@ import android.widget.TextView;
 
 import com.deskind.rollingwrench.database.AppDatabase;
 import com.deskind.rollingwrench.database.DBUtility;
+import com.deskind.rollingwrench.entities.Repair;
 import com.rollingwrench.deskind.rollingwrench.R;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
 
     //Variables
+    public static ArrayAdapter<String> adapter;
+
     //Views
     public static Spinner spinner = null;
     public static Context context;
     public TextView fuelSpendings;
+    public TextView repairSpendings;
 
     @Override
     protected void onStart(){
@@ -44,14 +50,14 @@ public class MainActivity extends AppCompatActivity {
         context = getApplicationContext();
         spinner = (Spinner)findViewById(R.id.car_spinner);
 
+        fuelSpendings = (TextView)findViewById(R.id.fuelSpengings);
+        repairSpendings = (TextView)findViewById(R.id.repairSpendings);
+
+        //Set up categories spendings
 
         //Prepare spinner
         spinner.setAdapter(prepareSpinner(DBUtility.getAppDatabase(getApplicationContext())));
         spinner.setOnItemSelectedListener(new SpinnerItem());
-        fuelSpendings = (TextView)findViewById(R.id.fuelSpengings);
-
-        //Set up categories spendings
-
     }
 
     @Override
@@ -59,13 +65,23 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
 
         String carBrand = (String)spinner.getSelectedItem();
-        float spendings = calcFuelSpendings(carBrand);
-        fuelSpendings.setText(String.format("%.1f", spendings));
+
+        float forFuel = calcFuelSpendings(carBrand);
+        fuelSpendings.setText(String.format("%.1f", forFuel));
+
+        float forRepairs = calcRepairsSpendings(carBrand);
+        repairSpendings.setText(String.format("%.1f", forRepairs));
+
 
     }
 
     public void fuelCategoryClicked(View v){
         Intent intent = new Intent(this, FuelChooseActivity.class);
+        startActivity(intent);
+    }
+
+    public void repairsCategotyClicked(View v){
+        Intent intent = new Intent(this, RepairsCategoryActivity.class);
         startActivity(intent);
     }
 
@@ -77,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayAdapter prepareSpinner(AppDatabase database){
         String [] arr = database.getCarsDao().getAllCarBrands();
         Log.i("DB", "CARS IN DATABASE " + arr.length);
-        ArrayAdapter<String> adapter =  new ArrayAdapter<String>(getApplicationContext(), R.layout.spinner_item, arr);
+        adapter =  new ArrayAdapter<String>(context, R.layout.spinner_item, arr);
         adapter.setDropDownViewResource(R.layout.spinner_item);
         return adapter;
     }
@@ -102,6 +118,16 @@ public class MainActivity extends AppCompatActivity {
         return fuelSpendings;
     }
 
+    public static float calcRepairsSpendings(String carBrand){
+        float repairsSpendings = 0;
+        Repair[] repairs = DBUtility.getAppDatabase(context).getCarsDao().getAllRapairsForBrand(carBrand);
+        ArrayList<Repair> repairs1 = new ArrayList<>(Arrays.asList(repairs));
+        for(Repair r : repairs1){
+            repairsSpendings+=r.getPartPrice();
+        }
+        return repairsSpendings;
+    }
+
 
     class SpinnerItem implements AdapterView.OnItemSelectedListener{
 
@@ -109,8 +135,11 @@ public class MainActivity extends AppCompatActivity {
         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
             String carBrand = (String)spinner.getSelectedItem();
-            float spendings = calcFuelSpendings(carBrand);
-            fuelSpendings.setText(String.format("%.1f", spendings));
+            float forFuel = calcFuelSpendings(carBrand);
+            fuelSpendings.setText(String.format("%.1f", forFuel));
+
+            float forRepairs = calcRepairsSpendings(carBrand);
+            repairSpendings.setText(String.format("%.1f", forRepairs));
         }
 
         @Override

@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.deskind.rollingwrench.database.AppDatabase;
 import com.deskind.rollingwrench.database.DBUtility;
@@ -33,13 +34,24 @@ public class NewCarActivity extends Activity {
 
     public void AddNewCar(View v){
         Car car = new Car();
-        car.setCarBrand(brandName.getText().toString());
+        String brand = brandName.getText().toString();
+
+        if(brand.equals("")){
+            Toast toast = Toast.makeText(getApplicationContext(), "Введите имя", Toast.LENGTH_LONG);
+            toast.show();
+            return;
+        }
+
+        car.setCarBrand(brand);
+
         AppDatabase db = DBUtility.getAppDatabase(MainActivity.context);
         String [] arr = db.getCarsDao().getAllCarBrands();
+
         //If cars table is empty no need to check
         if (arr.length == 0){
             db.getCarsDao().insertNewCar(car);
             Log.i("DB", "NEW CAR SUCCESSFULLY ADDED IN THE DATABSE");
+            this.finish();
         //Checking on existense
         }else{
             List<String> list = Arrays.asList(arr);
@@ -49,6 +61,7 @@ public class NewCarActivity extends Activity {
             }else{
                 db.getCarsDao().insertNewCar(car);
                 Log.i("DB", "NEW CAR SUCCESSFULLY ADDED IN THE DATABSE");
+                this.finish();
             }
         }
     }
