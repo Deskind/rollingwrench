@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.deskind.rollingwrench.database.AppDatabase;
 import com.deskind.rollingwrench.database.DBUtility;
+import com.deskind.rollingwrench.entities.FluidService;
 import com.deskind.rollingwrench.entities.Repair;
 import com.rollingwrench.deskind.rollingwrench.R;
 
@@ -31,8 +32,7 @@ public class MainActivity extends AppCompatActivity {
     //Views
     public static Spinner spinner = null;
     public static Context context;
-    public TextView fuelSpendings;
-    public TextView repairSpendings;
+    public TextView fuelSpendings, repairSpendings, fluidsSpendings;
 
     @Override
     protected void onStart(){
@@ -52,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
 
         fuelSpendings = (TextView)findViewById(R.id.fuelSpengings);
         repairSpendings = (TextView)findViewById(R.id.repairSpendings);
+        fluidsSpendings = (TextView)findViewById(R.id.fluidsSpendings);
+
 
         //Set up categories spendings
 
@@ -72,11 +74,17 @@ public class MainActivity extends AppCompatActivity {
         float forRepairs = calcRepairsSpendings(carBrand);
         repairSpendings.setText(String.format("%.1f", forRepairs));
 
-
+        int fluidsTotalCost = calcFluidsSpendings(carBrand);
+        fluidsSpendings.setText(String.valueOf(fluidsTotalCost));
     }
 
     public void fuelCategoryClicked(View v){
         Intent intent = new Intent(this, FuelChooseActivity.class);
+        startActivity(intent);
+    }
+
+    public void fluidsCategoryClicked(View v){
+        Intent intent = new Intent(this, FluidsActivity.class);
         startActivity(intent);
     }
 
@@ -126,6 +134,15 @@ public class MainActivity extends AppCompatActivity {
             repairsSpendings+=r.getPartPrice();
         }
         return repairsSpendings;
+    }
+
+    public static int calcFluidsSpendings(String carBrand){
+        int total = 0;
+        int [] arr = DBUtility.getAppDatabase(context).getCarsDao().getFluidServicesTotalCost(carBrand);
+        for(int i = 0 ; i < arr.length; i++){
+            total+=arr[i];
+        }
+        return total;
     }
 
 

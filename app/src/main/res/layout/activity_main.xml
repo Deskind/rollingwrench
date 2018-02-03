@@ -28,7 +28,7 @@
         android:layout_width="wrap_content"
         android:layout_height="19dp"
         android:layout_marginTop="16dp"
-        android:text="Выберите ваш автомобиль:"
+        android:text="Выберите автомобиль:"
         android:textColor="@android:color/holo_blue_dark"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="@+id/car_spinner"
@@ -61,6 +61,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:onClick="repairsCategotyClicked"
         android:src="@drawable/wrench100x100"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.15"
@@ -83,6 +84,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:onClick="fluidsCategoryClicked"
         android:src="@drawable/liquids100x100"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.8"
@@ -144,6 +146,26 @@
         android:textColor="@android:color/holo_green_dark"
         app:layout_constraintBottom_toTopOf="@+id/fuel_category_image_button"
         app:layout_constraintEnd_toEndOf="@+id/fuel_category_image_button" />
+
+    <TextView
+        android:id="@+id/repairSpendings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="0000"
+        android:textColor="@android:color/holo_green_dark"
+        app:layout_constraintBottom_toTopOf="@+id/imageButton012"
+        app:layout_constraintEnd_toEndOf="@+id/imageButton012" />
+
+    <TextView
+        android:id="@+id/fluidsSpendings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="0000"
+        android:textColor="@android:color/holo_green_dark"
+        app:layout_constraintBottom_toTopOf="@+id/imageButton22"
+        app:layout_constraintEnd_toEndOf="@+id/imageButton22" />
 
 
 </android.support.constraint.ConstraintLayout>

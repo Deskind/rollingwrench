@@ -8,6 +8,7 @@ import android.arch.persistence.room.Query;
 import android.database.Cursor;
 
 import com.deskind.rollingwrench.entities.Car;
+import com.deskind.rollingwrench.entities.FluidService;
 import com.deskind.rollingwrench.entities.FuelUp;
 import com.deskind.rollingwrench.entities.Repair;
 
@@ -25,6 +26,9 @@ public interface  CarsDAO {
     @Insert
     public void insertRepair(Repair repair);
 
+    @Insert
+    public void insertFluidService(FluidService fluidService);
+
     @Query("SELECT * FROM 'Car' where car_brand = :car_brand")
     public Car getCar(String car_brand);
 
@@ -34,6 +38,12 @@ public interface  CarsDAO {
     @Query("SELECT car_brand FROM car")
     public String[] getAllCarBrands();
 
+    @Query("SELECT * FROM FluidService where car_brand = :carBrand")
+    public FluidService[] getAllFluidServices(String carBrand);
+
     @Query("SELECT * FROM Repair where CarBrand = :carBrand")
     public Repair[] getAllRapairsForBrand(String carBrand);
+
+    @Query("SELECT price FROM FluidService where car_brand = :carBrand")
+    public int[] getFluidServicesTotalCost(String carBrand);
 }

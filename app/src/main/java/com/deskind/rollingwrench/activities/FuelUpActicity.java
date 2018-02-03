@@ -34,6 +34,8 @@ public class FuelUpActicity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fuel_up_acticity);
 
+        setTitle("Заправка " + (String)MainActivity.spinner.getSelectedItem());
+
         //Find elements
         litersPicker = (NumberPicker)findViewById(R.id.litersPicker);
         fuelCost = (EditText)findViewById(R.id.fuelCost);
