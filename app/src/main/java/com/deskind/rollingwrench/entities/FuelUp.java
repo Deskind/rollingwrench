@@ -10,7 +10,8 @@ import com.deskind.rollingwrench.activities.MainActivity;
 
 @Entity (foreignKeys = @ForeignKey(entity = Car.class,
                                     parentColumns = "car_brand",
-                                    childColumns = "car_brand"))
+                                    childColumns = "car_brand",
+                                    onDelete = ForeignKey.CASCADE))
 public class FuelUp {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "fuelup_id")

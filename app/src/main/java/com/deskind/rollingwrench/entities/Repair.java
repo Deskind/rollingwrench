@@ -8,7 +8,8 @@ import android.arch.persistence.room.PrimaryKey;
 
 @Entity (foreignKeys = @ForeignKey(entity = Car.class,
         parentColumns = "car_brand",
-        childColumns = "CarBrand"))
+        childColumns = "CarBrand",
+        onDelete = ForeignKey.CASCADE))
 public class Repair {
 
     @PrimaryKey(autoGenerate = true)
@@ -18,7 +19,7 @@ public class Repair {
     @ColumnInfo(name = "CarBrand")
     public String carBrand;
 
-    //YYYY-MM-DD HH:MM:SS.SSS
+    //YYYY-MM-DD
     @ColumnInfo(name = "Дата")
     public String date;
 

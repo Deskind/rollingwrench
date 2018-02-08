@@ -1,33 +1,41 @@
 package com.deskind.rollingwrench.activities;
 
-import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.deskind.rollingwrench.database.AppDatabase;
 import com.deskind.rollingwrench.database.DBUtility;
-import com.deskind.rollingwrench.entities.FluidService;
+import com.deskind.rollingwrench.entities.Car;
 import com.deskind.rollingwrench.entities.Repair;
+import com.deskind.rollingwrench.managers.MileageManager;
 import com.rollingwrench.deskind.rollingwrench.R;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
 
     //Variables
+    AlertDialog dialog = null;
     public static ArrayAdapter<String> adapter;
+    public static String newCarBrand = null;
 
     //Views
     public static Spinner spinner = null;
@@ -46,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setSupportActionBar((Toolbar)findViewById(R.id.toolbar));
 
         context = getApplicationContext();
         spinner = (Spinner)findViewById(R.id.car_spinner);
@@ -54,17 +63,26 @@ public class MainActivity extends AppCompatActivity {
         repairSpendings = (TextView)findViewById(R.id.repairSpendings);
         fluidsSpendings = (TextView)findViewById(R.id.fluidsSpendings);
 
-
-        //Set up categories spendings
-
         //Prepare spinner
         spinner.setAdapter(prepareSpinner(DBUtility.getAppDatabase(getApplicationContext())));
         spinner.setOnItemSelectedListener(new SpinnerItem());
+
+        if(spinner.getCount() == 0){
+            Toast.makeText(this, "Введите имя для вашего авто", Toast.LENGTH_LONG).show();
+            startActivity(new Intent(this, NewCarActivity.class));
+        }
+
     }
 
     @Override
     protected void onResume(){
         super.onResume();
+
+        //Check on new car in the app
+        if(NewCarActivity.isThereNewCar){
+            spinner.setAdapter(prepareSpinner(DBUtility.getAppDatabase(this)));
+            NewCarActivity.isThereNewCar = false;
+        }
 
         String carBrand = (String)spinner.getSelectedItem();
 
@@ -79,24 +97,38 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void fuelCategoryClicked(View v){
-        Intent intent = new Intent(this, FuelChooseActivity.class);
-        startActivity(intent);
+        if(MainActivity.spinner.getCount() != 0) {
+            Intent intent = new Intent(this, FuelChooseActivity.class);
+            startActivity(intent);
+        }else {
+            Toast.makeText(this, "Необходимо добавить авто", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     public void fluidsCategoryClicked(View v){
-        Intent intent = new Intent(this, FluidsActivity.class);
-        startActivity(intent);
+        if(MainActivity.spinner.getCount() != 0) {
+            Intent intent = new Intent(this, FluidsActivity.class);
+            startActivity(intent);
+        }else {
+            Toast.makeText(this, "Необходимо добавить авто", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void repairsCategotyClicked(View v){
-        Intent intent = new Intent(this, RepairsCategoryActivity.class);
-        startActivity(intent);
+        if(MainActivity.spinner.getCount() != 0) {
+            Intent intent = new Intent(this, RepairsCategoryActivity.class);
+            startActivity(intent);
+        }else {
+            Toast.makeText(this, "Необходимо добавить авто", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void addNewCarClicked(View v){
         Intent intent = new Intent(this, NewCarActivity.class);
         startActivity(intent);
     }
+
 
     private ArrayAdapter prepareSpinner(AppDatabase database){
         String [] arr = database.getCarsDao().getAllCarBrands();
@@ -142,8 +174,77 @@ public class MainActivity extends AppCompatActivity {
         for(int i = 0 ; i < arr.length; i++){
             total+=arr[i];
         }
+
         return total;
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.delete_car_menu_item:
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                View view = getLayoutInflater().inflate(R.layout.dialog_delete_car, null);
+
+                builder.setView(view);
+                dialog = builder.create();
+                dialog.show();
+
+                final EditText etCarBrand = (EditText)view.findViewById(R.id.etDeleteCar);
+                Button button = (Button)view.findViewById(R.id.car_delete_button);
+
+                button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String carToDelete = etCarBrand.getText().toString();
+                        Log.i("CARBRAND" , carToDelete);
+                        if(carToDelete.isEmpty()){
+
+                            Toast.makeText(getApplicationContext(), "Введите название авто", Toast.LENGTH_LONG).show();
+                        }else{
+                            String brand = (String)MainActivity.spinner.getSelectedItem();
+                            Car car = DBUtility.getAppDatabase(getApplicationContext()).getCarsDao().getCar(carToDelete);
+                            if(car==null){
+                                Toast.makeText(getApplicationContext(), "Авто с таким названием не найдено", Toast.LENGTH_LONG).show();
+                            }else {
+                                DBUtility.getAppDatabase(getApplicationContext()).getCarsDao().deleteCar(carToDelete);
+                                Toast.makeText(getApplicationContext(), "Авто удалено", Toast.LENGTH_LONG).show();
+
+                                //Refresh values on the activity
+                                spinner.setAdapter(prepareSpinner(DBUtility.getAppDatabase(getApplicationContext())));
+                                float forFuel = calcFuelSpendings((String)MainActivity.spinner.getSelectedItem());
+                                fuelSpendings.setText(String.format("%.1f", forFuel));
+                                float forRepairs = calcRepairsSpendings((String)MainActivity.spinner.getSelectedItem());
+                                repairSpendings.setText(String.format("%.1f", forRepairs));
+                                int fluidsTotalCost = calcFluidsSpendings((String)MainActivity.spinner.getSelectedItem());
+                                fluidsSpendings.setText(String.valueOf(fluidsTotalCost));
+
+                                dialog.cancel();
+                            }
+                        }
+
+                    }
+                });
+                return true;
+
+            case R.id.set_current_mileage:
+            MileageManager.showCurrentMileageDialog(this, getLayoutInflater());
+            return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_activity_menu, menu);
+        return true;
+    }
+
+
+
 
 
     class SpinnerItem implements AdapterView.OnItemSelectedListener{
@@ -152,11 +253,19 @@ public class MainActivity extends AppCompatActivity {
         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
             String carBrand = (String)spinner.getSelectedItem();
+
+            //reset current mileage
+            MileageManager.setCurrentMileage(0);
+
+
             float forFuel = calcFuelSpendings(carBrand);
             fuelSpendings.setText(String.format("%.1f", forFuel));
 
             float forRepairs = calcRepairsSpendings(carBrand);
             repairSpendings.setText(String.format("%.1f", forRepairs));
+
+            int forFluids = calcFluidsSpendings(carBrand);
+            fluidsSpendings.setText(String.valueOf(forFluids));
         }
 
         @Override

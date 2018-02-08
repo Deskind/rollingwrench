@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">RollingWrench</string>
+    <string name="repairsCategoryActName">Ремонты</string>
+    <string name="canister_image">Canister image</string>
+    <string name="tvDate">Дата</string>
+    <string name="tvMileage">Пробег</string>
+    <string name="tvBrand">Брэнд</string>
+    <string name="tvPrice">$</string>
+    <string name="tvDescription">Описание</string>
+    <string name="addNewEntry">Добавить новую запись</string>
+    <string name="done">Готово</string>
+    <string name="wantToDeleteCar">Введите название авто</string>
+    <string name="delete">Удалить</string>
+    <string name="cancel">Отмена</string>
+    <string name="afterRepair">C момента ремонта пройдено км</string>
+    <string name="current_mileage">Введите пробег автомобиля</string>
+    <string name="afterService">С момента сервиса пройдено км:</string>
+    <string name="confirmDelete">Удалить запись?</string>
+
+</resources>

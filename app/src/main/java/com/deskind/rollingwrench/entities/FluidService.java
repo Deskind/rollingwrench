@@ -9,7 +9,8 @@ import android.support.annotation.NonNull;
 
 @Entity (foreignKeys = @ForeignKey(entity = Car.class,
         parentColumns = "car_brand",
-        childColumns = "car_brand"))
+        childColumns = "car_brand",
+        onDelete = ForeignKey.CASCADE))
 public class FluidService {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "service_id")

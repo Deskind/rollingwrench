@@ -41,9 +41,9 @@ public class DBUtility {
     public static AppDatabase getAppDatabase(Context context){
         if(appDatabase == null){
             appDatabase = Room.databaseBuilder(context, AppDatabase.class, "cars").
-                    allowMainThreadQueries().fallbackToDestructiveMigration().
+                    allowMainThreadQueries().
+                    fallbackToDestructiveMigration().
                     build();
-
 
             return  appDatabase;
         }else {

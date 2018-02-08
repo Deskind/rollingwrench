@@ -1,5 +1,6 @@
 package com.deskind.rollingwrench.activities;
 
+import android.Manifest;
 import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,6 +21,9 @@ import java.util.Arrays;
 import java.util.List;
 
 public class NewCarActivity extends Activity {
+
+    //Indicates that new car is addet to application
+    public static boolean isThereNewCar = false;
 
     private EditText brandName;
     private Button saveCarButton;
@@ -50,7 +54,7 @@ public class NewCarActivity extends Activity {
         //If cars table is empty no need to check
         if (arr.length == 0){
             db.getCarsDao().insertNewCar(car);
-            Log.i("DB", "NEW CAR SUCCESSFULLY ADDED IN THE DATABSE");
+            isThereNewCar = true;
             this.finish();
         //Checking on existense
         }else{
@@ -60,6 +64,7 @@ public class NewCarActivity extends Activity {
                 Log.i("DB", "SORRY BUT CAR WITH SUCH NAME ALREADY EXISTS IN THE DATABASE");
             }else{
                 db.getCarsDao().insertNewCar(car);
+                isThereNewCar = true;
                 Log.i("DB", "NEW CAR SUCCESSFULLY ADDED IN THE DATABSE");
                 this.finish();
             }

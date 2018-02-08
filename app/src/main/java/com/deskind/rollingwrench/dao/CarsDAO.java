@@ -38,12 +38,21 @@ public interface  CarsDAO {
     @Query("SELECT car_brand FROM car")
     public String[] getAllCarBrands();
 
-    @Query("SELECT * FROM FluidService where car_brand = :carBrand")
-    public FluidService[] getAllFluidServices(String carBrand);
+    @Query("SELECT * FROM FluidService where car_brand = :carBrand ORDER BY \"Date\" DESC")
+    public List<FluidService> getAllFluidServices(String carBrand);
 
-    @Query("SELECT * FROM Repair where CarBrand = :carBrand")
+    @Query("SELECT * FROM Repair where CarBrand = :carBrand ORDER BY \"Дата\" ASC")
     public Repair[] getAllRapairsForBrand(String carBrand);
 
     @Query("SELECT price FROM FluidService where car_brand = :carBrand")
     public int[] getFluidServicesTotalCost(String carBrand);
+
+    @Query("DELETE from Car where car_brand = :carBrand")
+    public void deleteCar(String carBrand);
+
+    @Query("DELETE from Repair where ID = :repairId")
+    public void deleteRepair (int repairId);
+
+    @Query("DELETE from FluidService where service_id = :serviceId")
+    public void deleteFluidService(int serviceId);
 }
