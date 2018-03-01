@@ -56,7 +56,7 @@ public class FuelUpActicity extends Activity {
         AppDatabase appDatabase = DBUtility.getAppDatabase(MainActivity.context);
         Car car = appDatabase.getCarsDao().getCar(brand);
         Date date = new Date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         String formattedDate = dateFormat.format(date);
         FuelUp fuelUp = new FuelUp(brand, formattedDate, liters, fuelUpCost);
         appDatabase.getCarsDao().insertFuelUp(fuelUp);

@@ -15,22 +15,62 @@ import com.deskind.rollingwrench.activities.MainActivity;
 public class FuelUp {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "fuelup_id")
-    public int fuelUpId;
+    private int fuelUpId;
 
     @ColumnInfo(name = "car_brand")
-    public String carBrand;
+    private String carBrand;
 
     //YYYY-MM-DD HH:MM:SS.SSS
-    public String date;
+    private String date;
 
-    public int liters;
+    private int liters;
 
-    public  float cost;
+    private float cost;
 
     public FuelUp(String carBrand, String date, int liters, float cost) {
         this.carBrand = carBrand;
         this.date = date;
         this.liters = liters;
         this.cost = cost;
+    }
+
+    public void setFuelUpId(int fuelUpId) {
+        this.fuelUpId = fuelUpId;
+    }
+
+    public void setCarBrand(String carBrand) {
+        this.carBrand = carBrand;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public void setLiters(int liters) {
+        this.liters = liters;
+    }
+
+    public void setCost(float cost) {
+        this.cost = cost;
+    }
+
+    public int getFuelUpId() {
+        return fuelUpId;
+    }
+
+    public String getCarBrand() {
+        return carBrand;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public int getLiters() {
+        return liters;
+    }
+
+    public float getCost() {
+        return cost;
     }
 }

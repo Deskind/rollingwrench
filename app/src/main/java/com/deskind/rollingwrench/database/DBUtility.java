@@ -51,11 +51,4 @@ public class DBUtility {
         }
     }
 
-    //Getting list of fuel ups
-    public static Cursor getFuelUpsList (Context context){
-
-            return getAppDatabase(context).getCarsDao().getFuelUps();
-
-    }
-
 }

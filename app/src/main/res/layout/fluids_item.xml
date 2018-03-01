@@ -9,7 +9,8 @@
     android:layout_height="wrap_content">
 
     <ImageButton
-        android:id="@+id/imageButton4"
+        android:id="@+id/ib_fluid_item_canister"
+        android:background="@android:color/transparent"
         android:layout_width="94dp"
         android:layout_height="145dp"
         android:layout_marginStart="8dp"
@@ -17,20 +18,19 @@
         android:contentDescription="@string/canister_image"
         android:src="@drawable/canister128"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
     <TextView
         android:id="@+id/tvDate"
         android:layout_width="132dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:gravity="center_horizontal"
         android:hint="@string/tvDate"
         android:textSize="25sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageButton4"
+        app:layout_constraintStart_toEndOf="@+id/ib_fluid_item_canister"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -42,18 +42,20 @@
         android:gravity="center_horizontal"
         android:hint="@string/tvMileage"
         android:textSize="20sp"
-        app:layout_constraintStart_toEndOf="@+id/imageButton4"
+        app:layout_constraintStart_toEndOf="@+id/ib_fluid_item_canister"
         app:layout_constraintTop_toBottomOf="@id/tvDate" />
 
     <TextView
         android:id="@+id/tvBrand"
-        android:layout_width="75dp"
+        android:layout_width="148dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
         android:gravity="center_horizontal"
         android:hint="@string/tvBrand"
         android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tvMileage"
         app:layout_constraintTop_toBottomOf="@id/tvDate" />
 
@@ -61,29 +63,30 @@
         android:id="@+id/tvPrice"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
         android:gravity="center_horizontal"
         android:hint="@string/tvPrice"
         android:textColor="@color/colorPrimary"
         android:textSize="20sp"
-        app:layout_constraintStart_toEndOf="@+id/tvBrand"
-        app:layout_constraintTop_toBottomOf="@id/tvDate" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvDate"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvDescription"
-        android:layout_width="190dp"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:ems="10"
+        android:gravity="center_horizontal"
         android:hint="@string/tvDescription"
         android:inputType="textMultiLine"
-        android:textSize="15sp"
-        android:gravity="center_horizontal"
+        android:textSize="12dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageButton4"
+        app:layout_constraintStart_toEndOf="@+id/ib_fluid_item_canister"
         app:layout_constraintTop_toBottomOf="@+id/tvMileage" />
 
     <LinearLayout
@@ -95,6 +98,48 @@
         android:background="#263238"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imageButton4" />
+        app:layout_constraintTop_toBottomOf="@id/ib_fluid_item_canister" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="186dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/afterService"
+        android:textColor="@android:color/holo_green_dark"
+        android:textSize="11dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ib_fluid_item_canister"
+        app:layout_constraintTop_toBottomOf="@+id/tvDescription" />
+
+    <TextView
+        android:id="@+id/tv_fluiditem_after_service"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:textColor="@android:color/holo_orange_dark"
+        android:textSize="12dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.28"
+        app:layout_constraintStart_toEndOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/tvDescription"
+        app:layout_constraintVertical_bias="0.69" />
+
+    <ImageButton
+        android:id="@+id/ib_delete_fluid_service"
+        android:background="@android:color/transparent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/ib_fluid_item_canister"
+        app:layout_constraintStart_toStartOf="@+id/ib_fluid_item_canister"
+        app:srcCompat="@drawable/delete32"
+        android:onClick="deleteFluidService"/>
 
 </android.support.constraint.ConstraintLayout>

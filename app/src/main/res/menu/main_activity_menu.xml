@@ -1,4 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/delete_car_menu_item"
+        android:icon="@drawable/calendar64"
+        android:title="Удалить Автомобиль"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/set_current_mileage"
+        android:icon="@drawable/odometer"
+        android:title="Установть текущий пробег"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/set_currency"
+        android:title="@string/set_currency"
+        app:showAsAction="never"
+        />
 
 </menu>

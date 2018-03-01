@@ -181,5 +181,54 @@
             app:layout_constraintTop_toBottomOf="@+id/imageButton9"
             app:srcCompat="@drawable/save300x107" />
 
+        <Button
+            android:id="@+id/delete_repair_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@android:color/holo_red_light"
+            android:onClick="onDeleteRepair"
+            android:text="Удалить"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/saveRepair" />
+
+        <TextView
+            android:id="@+id/tvAfterRepair1"
+            android:layout_width="128dp"
+            android:layout_height="54dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="10dp"
+            android:ems="10"
+            android:gravity="center"
+            android:inputType="textMultiLine"
+            android:text="@string/afterRepair"
+            android:textColor="@android:color/holo_green_dark"
+            android:textSize="12dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/nextRepair"
+            app:layout_constraintStart_toEndOf="@+id/previousRepair"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvAfterRepair2"
+            android:layout_width="114dp"
+            android:layout_height="28dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:textColor="@android:color/holo_orange_dark"
+            android:textSize="20dp"
+            app:layout_constraintEnd_toStartOf="@+id/nextRepair"
+            app:layout_constraintStart_toEndOf="@+id/previousRepair"
+            app:layout_constraintTop_toBottomOf="@+id/tvAfterRepair1" />
+
     </android.support.constraint.ConstraintLayout>
 </ScrollView>

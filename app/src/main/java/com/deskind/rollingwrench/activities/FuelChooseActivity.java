@@ -14,6 +14,8 @@ public class FuelChooseActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fuel_choose);
+
+        setTitle("Заправка");
     }
 
     public void newFuelUpClicked(View v){

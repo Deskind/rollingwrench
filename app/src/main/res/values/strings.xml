@@ -16,5 +16,7 @@
     <string name="current_mileage">Введите пробег автомобиля</string>
     <string name="afterService">С момента сервиса пройдено км:</string>
     <string name="confirmDelete">Удалить запись?</string>
-
+    <string name="new_car_name">Имя нового авто</string>
+    <string name="set_currency">Установить валюту</string>
+    <string name="shared_preferences_file">com.deskind.rollingwrench.shared_preferences_file</string>
 </resources>

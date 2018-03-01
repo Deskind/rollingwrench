@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity=""
+    android:padding="5dp">
+
+
+    <TextView
+        android:id="@+id/tv_fuel_item_car_brand"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="TextView"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="#FF5722"
+        android:textSize="15sp"/>
+
+    <TextView
+        android:id="@+id/tv_fuelUp_result_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="TextView"
+        android:textColor="#1B5E20"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.34"
+        app:layout_constraintStart_toEndOf="@+id/tv_fuel_item_car_brand"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_fuel_item_date"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="TextView"
+        app:layout_constraintStart_toStartOf="@+id/tv_fuel_item_car_brand"
+        app:layout_constraintTop_toBottomOf="@+id/tv_fuel_item_car_brand" />
+
+
+    <LinearLayout
+        android:id="@+id/fluid_item_bottom_line"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_marginTop="8dp"
+        android:background="@android:color/holo_orange_dark"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_fuel_item_date">
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_fuel_item_del"
+        android:layout_width="34dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@android:color/holo_red_light"
+        android:onClick="deleteFuelUpItem"
+        android:text="Del"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.8"
+        app:layout_constraintStart_toEndOf="@+id/tv_fuelUp_result_price"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</android.support.constraint.ConstraintLayout>

@@ -15,7 +15,7 @@ import com.deskind.rollingwrench.entities.Repair;
 import static com.deskind.rollingwrench.activities.MainActivity.context;
 
 
-@Database(version = 10, entities = {Car.class, FuelUp.class, Repair.class, FluidService.class})
+@Database(version = 11, entities = {Car.class, FuelUp.class, Repair.class, FluidService.class})
 public abstract class AppDatabase extends RoomDatabase {
 abstract public CarsDAO getCarsDao();
 

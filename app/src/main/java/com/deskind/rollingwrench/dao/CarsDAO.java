@@ -33,7 +33,10 @@ public interface  CarsDAO {
     public Car getCar(String car_brand);
 
     @Query("SELECT * FROM 'FuelUp'")
-    public Cursor getFuelUps();
+    public List<FuelUp> getFuelUps();
+
+    @Query("DELETE FROM FuelUp where fuelup_id = :id")
+    public void deleteFuelUp(int id);
 
     @Query("SELECT car_brand FROM car")
     public String[] getAllCarBrands();
@@ -41,7 +44,7 @@ public interface  CarsDAO {
     @Query("SELECT * FROM FluidService where car_brand = :carBrand ORDER BY \"Date\" DESC")
     public List<FluidService> getAllFluidServices(String carBrand);
 
-    @Query("SELECT * FROM Repair where CarBrand = :carBrand ORDER BY \"Дата\" ASC")
+    @Query("SELECT * FROM Repair where CarBrand = :carBrand ORDER BY \"Пробег\" ASC")
     public Repair[] getAllRapairsForBrand(String carBrand);
 
     @Query("SELECT price FROM FluidService where car_brand = :carBrand")

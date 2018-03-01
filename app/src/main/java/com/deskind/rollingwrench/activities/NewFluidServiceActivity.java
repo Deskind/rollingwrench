@@ -92,7 +92,7 @@ public class NewFluidServiceActivity extends AppCompatActivity {
         }
 
         public void onDateSet(DatePicker view, int year, int month, int day) {
-            String date = year +"/"+(month+1)+"/"+day;
+            String date = year +"-"+(month+1)+"-    "+day;
             tvDate.setText(date);
         }
     }

@@ -29,8 +29,8 @@ import java.util.Map;
 
 public class FluidsActivity extends AppCompatActivity {
 
-    static FluidsServicesListAdapter adapter;
-    static FluidService fluidService;
+    public static FluidsServicesListAdapter adapter;
+    public static FluidService fluidService;
 
     public static final String TAG = "LIQUIDS ACTIVITY";
     private static final int DELETE_COMMAND = 1;
@@ -60,37 +60,6 @@ public class FluidsActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        /**The version with SIMPLE ADAPTER*/
-
-//        Map<String, Object> service;
-//        FluidService[] services = DBUtility.getAppDatabase(this).getCarsDao().getAllFluidServices((String)MainActivity.spinner.getSelectedItem());
-//        Log.i("SERVICES", String.valueOf(services.length));
-//        ArrayList<Map<String, Object>> servicesMap = new ArrayList<>(services.length);
-//        long currentMileage = MileageManager.getCurrentMileage();
-//        for(int i = 0; i < services.length; i++){
-//            long mileage = currentMileage - services[i].getMileage();
-//            service = new HashMap<>();
-//            service.put(ATTRIBUTE_DATE, services[i].getDate());
-//            service.put(ATTRIBUTE_MILEAGE, services[i].getMileage());
-//            service.put(ATTRIBUTE_BRAND, services[i].getFluidBrand());
-//            service.put(ATTRIBUTE_PRICE, services[i].getPrice());
-//            service.put(ATTRIBUTE_DESCRIPTION, services[i].getDescription());
-//            if(currentMileage != 0){
-//                service.put(ATTRIBUTE_AFTER_SERVICE, mileage);
-//            }else{
-//                service.put(ATTRIBUTE_AFTER_SERVICE, "");
-//            }
-//            servicesMap.add(service);
-//            String [] from = {ATTRIBUTE_DATE, ATTRIBUTE_MILEAGE, ATTRIBUTE_BRAND, ATTRIBUTE_PRICE, ATTRIBUTE_DESCRIPTION, ATTRIBUTE_AFTER_SERVICE};
-//            int [] to = {R.id.tvDate, R.id.tvMileage, R.id.tvBrand, R.id.tvPrice, R.id.tvDescription, R.id.tv_fluiditem_after_service};
-//            SimpleAdapter adapter = new SimpleAdapter(this, servicesMap, R.layout.fluids_item, from, to);
-//            lv.setAdapter(adapter);
-//        }
-
-        /**End SIMPLE ADAPTER VERSION*/
-
-
-
         List<FluidService> services = DBUtility.getAppDatabase(this).getCarsDao().getAllFluidServices((String)MainActivity.spinner.getSelectedItem());
 
         adapter = new FluidsServicesListAdapter(this, R.layout.fluids_item, services);
@@ -98,19 +67,19 @@ public class FluidsActivity extends AppCompatActivity {
         lv.setAdapter(adapter);
     }
 
-    public void deleteFluidService(View v){
+    public void     deleteFluidService(View v){
         fluidService = (FluidService)v.getTag();
 //        adapter.remove(fluidService);
         ConfirmDeleteFluidServiceFragment fragment = new ConfirmDeleteFluidServiceFragment();
         fragment.show(getFragmentManager(), "DeleteFluidService");
     }
 
-    public static void deleteServiceFromDB(Context contex){
+    public static void deleteServiceFromDB(Context context){
         //remove item from list view
         adapter.remove(fluidService);
         //remove entry from database
-        DBUtility.getAppDatabase(contex).getCarsDao().deleteFluidService(fluidService.getServiceId());
-        Toster.showToast(contex, "Удалено!", 1);
+        DBUtility.getAppDatabase(context).getCarsDao().deleteFluidService(fluidService.getServiceId());
+        Toster.showToast(context, "Удалено!", 1);
     }
 
 

@@ -7,11 +7,10 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 
 import com.deskind.rollingwrench.activities.FluidsActivity;
+import com.deskind.rollingwrench.activities.FuelsListActivity;
 import com.rollingwrench.deskind.rollingwrench.R;
 
-
-public class ConfirmDeleteFluidServiceFragment extends DialogFragment {
-
+public class ConfirmDeleteFuelItem extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
@@ -21,7 +20,7 @@ public class ConfirmDeleteFluidServiceFragment extends DialogFragment {
                 .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener(){
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        FluidsActivity.deleteServiceFromDB(getActivity());
+                        FuelsListActivity.deleteFuelUpFromDB(getActivity());
                     }
                 })
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
